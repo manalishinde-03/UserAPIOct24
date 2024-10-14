@@ -1,0 +1,4 @@
+user_firstName,userLastName,contactNumber,emailID,plotNumber,street,state,country,zipcode
+Jill,Test,2235561234,team05jill@test.com,abc-28,vision,illinois,USA,60091
+Jim,QA,2237861264,team05jim@test.com,xyz-456,dallas,texas,USA,56678
+Jane,Test,8477861264,team05carl@test.com,pqr-789,dells,Nevada,USA,5347
