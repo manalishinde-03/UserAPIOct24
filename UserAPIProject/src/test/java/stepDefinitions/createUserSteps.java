@@ -7,6 +7,8 @@ import io.restassured.response.Response;
 import request.CreateUserRequest;
 import utility.CommonUtils;
 
+import java.io.IOException;
+
 import org.testng.Assert;
 
 public class createUserSteps {
@@ -25,9 +27,40 @@ public class createUserSteps {
        
     	response = createUserRequest.createUserReq(testdata);
     }
+    
+    @When("User sends POST request having mandatory details with {string}")
+    public void userSendsThePostRequestWithMandatory(String testdata) throws Exception {
+       
+    	response = createUserRequest.createUserMandatoryDetailsReq(testdata);
+    }
 
     @Then("The response status code should be {int} Created")
     public void userShouldReceiveAValidResponse(int expectedStatusCode) {
+        response.getStatusCode();
+		Assert.assertEquals(response.getStatusCode(),expectedStatusCode );
+    }
+    
+    @When("User sends POST request with invalid details and {string}")
+    public void userSendsThePostRequestWithInvalid(String rowNum) throws Exception {
+       
+    	response = createUserRequest.createUserReq(rowNum);
+    }
+
+    @Then("For invalid details response status code should be {int} Bad Request")
+    public void userShouldReceiveBadReq(int expectedStatusCode) {
+        response.getStatusCode();
+		Assert.assertEquals(response.getStatusCode(),expectedStatusCode );
+    }
+    
+    
+    @When("User sends POST request with invalid endpoint and {string}")
+    public void userSendsThePostReqInvalidEndpoint(String rowNum) throws NumberFormatException, IOException{
+       
+    	response = createUserRequest.createUserReqInvalidEndpoint(rowNum);
+    }
+
+    @Then("For invalid endpoint response status code should be {int} Not Found")
+    public void userShouldReceiveNotFound(int expectedStatusCode) {
         response.getStatusCode();
 		Assert.assertEquals(response.getStatusCode(),expectedStatusCode );
     }

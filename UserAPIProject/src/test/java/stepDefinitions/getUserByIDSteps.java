@@ -53,8 +53,15 @@ public class getUserByIDSteps {
 	@Then("Validate the JSON Schema for retrived user details")
 	public void validate_json_schema_for_the_retrived_user_details() {
 		response.then()
+    	.assertThat().body(JsonSchemaValidator.matchesJsonSchemaInClasspath("Schema/getUserByIDSchema.json"));
+	}
+	
+	@Then("Validate JSON Schema for retrived user by FirstName")
+	public void validate_json_schema_for_retrived_user_by_first_name() {
+		response.then()
     	.assertThat().body(JsonSchemaValidator.matchesJsonSchemaInClasspath("Schema/getUserByFirstNameSchema.json"));
 	}
+	
 	
 	@Given("User creates GET request for all users")
 	public void user_creates_get_request_for_all_users() {

@@ -16,6 +16,7 @@ public class CommonUtils {
 	public static String USERNAME = endpoints.getString("username");
 	public static String PASSWORD = endpoints.getString("password");
 	public static String createUserEndpoint = endpoints.getString("createUserEndpoint");
+	public static String createUserInvalidEndpoint = endpoints.getString("createUserInvalidEndpoint");
 	public static String getUserByIDEndpoint = endpoints.getString("getUserByIDEndPoint");
 	public static String getUserByIDInvalidEndPoint = endpoints.getString("getUserByIDInvalidEndPoint");
 	public static String getAllUsersEndPoint = endpoints.getString("getAllUsersEndPoint");

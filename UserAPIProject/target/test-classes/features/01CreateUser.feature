@@ -12,3 +12,39 @@ Feature: Add User
       | rowNumber |
       |         1 |
       |         2 |
+			|         3 |
+      
+  @TC2
+  Scenario Outline: Create user with only mandatory valid details
+    Given User creates a POST request with valid details
+    When User sends POST request having mandatory details with "<rowNumber>"
+    Then The response status code should be 201 Created
+    
+     Examples: 
+      | rowNumber |
+      |         4 |
+      
+  @TC3
+  Scenario Outline: Create user with invalid details
+    Given User creates a POST request with valid details
+    When User sends POST request with invalid details and "<rowNumber>"
+    Then For invalid details response status code should be 400 Bad Request
+    
+     Examples: 
+      | rowNumber |
+      |         5 |
+      |         6 |
+      |         7 |
+      |         8 |
+     
+  @TC4
+  Scenario Outline: Create user with invalid endpoint
+    Given User creates a POST request with valid details
+    When User sends POST request with invalid endpoint and "<rowNumber>"
+    Then For invalid endpoint response status code should be 404 Not Found
+    
+     Examples: 
+      | rowNumber |
+      |         9 |
+    
+    

@@ -35,8 +35,7 @@ Feature: Get User
     Given User creates GET request with valid First Name
     When User sends GET request to fetch user with "<rowNumber>"
     Then The response status code should be 200 OK
-    And Validate the JSON Schema for retrived user details
-
+    And Validate JSON Schema for retrived user by FirstName
     Examples: 
       | rowNumber |
       |         1 |
