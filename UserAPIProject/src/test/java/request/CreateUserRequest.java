@@ -192,5 +192,59 @@ public class CreateUserRequest extends CommonUtils {
 		return response;
 		
 	}
+	
+	
+	public Response createUserReqNoAuth(String testdata) throws FileNotFoundException, IOException {
+
+		Map<String, String> dataMap = ExcelReader.getTestData(EXCEL_PATH, "Create", Integer.parseInt(testdata));
+
+		Map<String, Object> userAddress = new HashMap<>();
+
+			userAddress.put("plotNumber", dataMap.get("PlotNumber"));
+			userAddress.put("street", dataMap.get("Street"));
+			userAddress.put("state", dataMap.get("State"));
+			userAddress.put("country", dataMap.get("Country"));
+			userAddress.put("zipCode", dataMap.get("Zipcode"));
+
+		requestBody.put("user_first_name", dataMap.get("Firstname"));
+		requestBody.put("user_last_name", dataMap.get("Lastname"));
+		requestBody.put("user_contact_number", dataMap.get("ContactNumber"));
+		requestBody.put("user_email_id", dataMap.get("Email"));
+
+		requestBody.put("userAddress", userAddress);
+
+		ObjectMapper objectMapper = new ObjectMapper();
+		String jsonBody = objectMapper.writerWithDefaultPrettyPrinter().writeValueAsString(requestBody);
+
+		System.out.println("Request Body in JSON :" + jsonBody);
+
+		// Send the POST request
+		response = RestAssured
+				.given()
+				.header("Content-Type", "application/json")
+				.body(jsonBody)
+				.when().post(createUserEndpoint);
+
+		System.out.println("Response body - " + response.prettyPrint());
+		System.out.println("Response Status Code:  - " + response.getStatusCode());
+		logger.info("Response Status Code: " + response.getStatusCode());
+		logger.info("Response Headers: " + response.getHeaders().toString());
+
+		if(response.getStatusCode()==201) {
+		
+		int userID = response.path("user_id");
+		String userFirstName = response.jsonPath().getString("user_first_name");
+		System.out.println("Created user ID: " + userID);
+		System.out.println("Created user FirstName: " + userFirstName);
+
+		CommonUtils.setUserFirstName(userFirstName);
+
+		CommonUtils.setUserID(userID);
+
+		}
+		System.out.println(">>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>> ");
+		return response;
+
+	}
 
 }

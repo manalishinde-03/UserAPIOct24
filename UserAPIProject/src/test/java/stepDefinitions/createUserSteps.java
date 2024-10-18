@@ -52,6 +52,18 @@ public class createUserSteps {
 		Assert.assertEquals(response.getStatusCode(),expectedStatusCode );
     }
     
+    @When("User sends POST without Authorization and {string}")
+    public void userSendsThePostReqWithNoAuth(String rowNum) throws Exception {
+       
+    	response = createUserRequest.createUserReqNoAuth(rowNum);
+    }
+
+    @Then("For NoAuth response status code should be {int} Unauthorized")
+    public void userShouldReceiveUnauthorized(int expectedStatusCode) {
+        response.getStatusCode();
+		Assert.assertEquals(response.getStatusCode(),expectedStatusCode );
+    }
+    
     
     @When("User sends POST request with invalid endpoint and {string}")
     public void userSendsThePostReqInvalidEndpoint(String rowNum) throws NumberFormatException, IOException{

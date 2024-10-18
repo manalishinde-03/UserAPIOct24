@@ -1,4 +1,4 @@
-@tag
+@Order3
 Feature: Get User
 
   @TC1

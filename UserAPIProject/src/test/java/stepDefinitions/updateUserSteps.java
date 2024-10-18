@@ -33,6 +33,18 @@ public class updateUserSteps {
 		Assert.assertEquals(response.getStatusCode(),expectedStatusCode );
     }
     
+    @When("User sends PUT request with No Authorization and {string}")
+    public void userSendsThePutReqWithoutAuth(String testdata) throws Exception {
+       
+    	response = updateUserRequest.updateUserReqNoAuth(testdata);
+    }
+
+    @Then("User should receive status code {int} Unauthorized")
+    public void userShouldReceiveUnauthorized(int expectedStatusCode) {
+        response.getStatusCode();
+		Assert.assertEquals(response.getStatusCode(),expectedStatusCode );
+    }
+    
     @Then("Validate JSON Schema for the updated user")
     public void jsonSchemaValidationForUserCreated(){
     	response.then()

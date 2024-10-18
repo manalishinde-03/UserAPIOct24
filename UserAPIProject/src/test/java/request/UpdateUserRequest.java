@@ -66,4 +66,38 @@ public class UpdateUserRequest extends CommonUtils {
 
 	}
 
+	public Response updateUserReqNoAuth(String testdata) throws NumberFormatException, IOException {
+
+		Map<String, String> dataMap = ExcelReader.getTestData(EXCEL_PATH, "Update", Integer.parseInt(testdata));
+		Map<String, Object> userAddress = new HashMap<>();
+		userAddress.put("plotNumber", dataMap.get("PlotNumber"));
+		userAddress.put("street", dataMap.get("Street"));
+		userAddress.put("state", dataMap.get("State"));
+		userAddress.put("country", dataMap.get("Country"));
+		userAddress.put("zipCode", dataMap.get("Zipcode"));
+
+		requestBody.put("user_first_name", dataMap.get("Firstname"));
+		requestBody.put("user_last_name", dataMap.get("Lastname"));
+		requestBody.put("user_contact_number", dataMap.get("ContactNumber"));
+		requestBody.put("user_email_id", dataMap.get("Email"));
+		requestBody.put("userAddress", userAddress);
+
+		ObjectMapper objectMapper = new ObjectMapper();
+		String jsonBody = objectMapper.writerWithDefaultPrettyPrinter().writeValueAsString(requestBody);
+
+		response = RestAssured.given()
+				
+				.header("Content-Type", "application/json")
+				.pathParam("id",1)
+				.body(jsonBody)
+				.when()
+				.put(updateUserEndpoint +"/{id}");
+
+		
+		System.out.println("Response body - " + response.prettyPrint());
+		System.out.println("Response Status Code:  - " + response.getStatusCode());
+		
+		return response;
+	}
+
 }

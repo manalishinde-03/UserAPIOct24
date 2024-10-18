@@ -12,3 +12,13 @@ Feature: Update User
       | rowNumber |
       |         1 |
       |         2 |
+      
+       @TC2
+  Scenario Outline: Update user by user ID without Authorization
+    Given User creates PUT request with request body having new valid email ID
+    When User sends PUT request with No Authorization and "<rowNumber>"  
+    Then User should receive status code 401 Unauthorized
+
+    Examples: 
+      | rowNumber |
+      |         1 |
